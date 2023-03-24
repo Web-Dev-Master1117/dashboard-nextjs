@@ -119,7 +119,7 @@ function NotificationBarInner() {
 								<h3 className='text w-48 truncate leading-snug'>
 									{item.message}
 								</h3>
-								<span className='text-sm text-gray-300'>{item.time}</span>
+								<span className='text-sm text-gray-400'>{item.time}</span>
 							</span>
 						</li>
 					))}
@@ -151,7 +151,7 @@ function NotificationBarInner() {
 								<h3 className='text w-48 truncate leading-snug'>
 									{activity.message}
 								</h3>
-								<span className='text-sm text-gray-300'>{activity.time}</span>
+								<span className='text-sm text-gray-400'>{activity.time}</span>
 							</span>
 						</li>
 					))}
