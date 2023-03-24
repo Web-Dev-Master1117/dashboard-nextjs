@@ -1,11 +1,12 @@
 {
 	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json",
 	"words": [
+		"Baatchia",
 		"headlessui",
 		"heroicons",
-		"tsbuildinfo",
+		"nextjs",
 		"tailwindcss",
-		"Baatchia",
+		"tsbuildinfo",
 		"xsgames"
 	],
 	"ignorePaths": ["pnpm-lock.yaml", "*.tsbuildinfo"]
