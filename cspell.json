@@ -1,0 +1,12 @@
+{
+	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json",
+	"words": [
+		"headlessui",
+		"heroicons",
+		"tsbuildinfo",
+		"tailwindcss",
+		"Baatchia",
+		"xsgames"
+	],
+	"ignorePaths": ["pnpm-lock.yaml", "*.tsbuildinfo"]
+}
