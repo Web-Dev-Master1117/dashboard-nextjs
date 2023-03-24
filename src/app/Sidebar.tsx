@@ -3,6 +3,7 @@
 import { sidebarOpenState } from '@/recoil/atoms';
 import { Dialog, Transition } from '@headlessui/react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -23,6 +24,9 @@ export default function Sidebar() {
 			setIsLg(event.matches);
 		};
 	}, [setSidebarOpen]);
+
+	const pathname = usePathname();
+	useEffect(() => setSidebarOpen(false), [pathname, setSidebarOpen]);
 
 	return (
 		<>
@@ -55,7 +59,7 @@ export default function Sidebar() {
 						>
 							<Dialog.Panel
 								as='nav'
-								className='fixed top-0 left-0 h-screen min-w-[240px] border-r bg-white px-8 pb-5 transition-[background-color] duration-300 dark:border-gray-400 dark:bg-neutral-900'
+								className='fixed top-0 left-0 h-screen min-w-[240px] border-r bg-white px-8 pb-5 duration-300 dark:border-gray-400 dark:bg-neutral-900'
 							>
 								<SidebarInner />
 							</Dialog.Panel>
