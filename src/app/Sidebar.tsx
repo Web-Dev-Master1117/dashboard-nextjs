@@ -26,7 +26,9 @@ export default function Sidebar() {
 	}, [setSidebarOpen]);
 
 	const pathname = usePathname();
-	useEffect(() => setSidebarOpen(false), [pathname, setSidebarOpen]);
+	useEffect(() => {
+		if (!isLg) setSidebarOpen(false);
+	}, [isLg, pathname, setSidebarOpen]);
 
 	return (
 		<>

@@ -27,8 +27,8 @@ export default function Navbar() {
 				<span className='text-gray-400'>/</span>
 				<span className='capitalize'>{pageName}</span>
 			</div>
-			<div className='flex max-w-fit items-center gap-x-3'>
-				<div className='relative hidden max-w-md md:block'>
+			<div className='flex items-center gap-x-3'>
+				<div className='relative hidden w-52 max-w-md md:block'>
 					<label htmlFor='search' className='sr-only'>
 						Search
 					</label>
