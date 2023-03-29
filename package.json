@@ -43,7 +43,11 @@
 	},
 	"lint-staged": {
 		"*": [
-			"prettier --write --ignore-unknown --cache --cache-location=.prettier-cache"
+			"prettier --write --ignore-unknown --cache --cache-location=.prettier-cache",
+			"cspell --show-suggestions --relative --no-must-find-files --cache"
+		],
+		"*.{ts,tsx}": [
+			"eslint --fix --max-warnings 0 --cache"
 		]
 	}
 }
