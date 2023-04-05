@@ -11,87 +11,81 @@ export default function NotificationBar() {
 	const [notificationBarOpen, setNotificationBarOpen] = useRecoilState(
 		notificationBarOpenState
 	);
-	const [isOpen, setIsOpen] = useState(false);
-	useEffect(() => setIsOpen(notificationBarOpen), [notificationBarOpen]);
 
-	const [isLg, setIsLg] = useState(true);
+	const lgMediaQuery = window.matchMedia('(min-width: 1280px)');
+	const [isLg, setIsLg] = useState(lgMediaQuery.matches);
+
+	lgMediaQuery.onchange = (event) => {
+		setNotificationBarOpen(false);
+		setIsLg(event.matches);
+	};
+
 	useEffect(() => {
-		const lgMediaQuery = window.matchMedia('(min-width: 1280px)');
-
-		if (!lgMediaQuery.matches) setNotificationBarOpen(false);
-		setIsLg(lgMediaQuery.matches);
-
-		lgMediaQuery.onchange = (event) => {
-			if (!event.matches) setNotificationBarOpen(false);
-			setIsLg(event.matches);
-		};
-	}, [setNotificationBarOpen]);
+		if (!isLg) setNotificationBarOpen(false);
+	}, [isLg, setNotificationBarOpen]);
 
 	return (
 		<>
-			{!isLg && (
-				<Transition show={isOpen} as={Fragment}>
-					<Dialog
-						as='div'
-						className='relative z-40'
-						onClose={() => setNotificationBarOpen(false)}
+			<Transition show={!isLg && notificationBarOpen} as={Fragment}>
+				<Dialog
+					as='div'
+					className='relative z-40'
+					onClose={() => setNotificationBarOpen(false)}
+				>
+					<Transition.Child
+						as={Fragment}
+						enter='ease-out duration-300'
+						enterFrom='opacity-0'
+						enterTo='opacity-100'
+						leave='ease-in duration-200'
+						leaveFrom='opacity-100'
+						leaveTo='opacity-0'
 					>
-						<Transition.Child
-							as={Fragment}
-							enter='ease-out duration-300'
-							enterFrom='opacity-0'
-							enterTo='opacity-100'
-							leave='ease-in duration-200'
-							leaveFrom='opacity-100'
-							leaveTo='opacity-0'
-						>
-							<div className='fixed inset-0 bg-black/75' />
-						</Transition.Child>
-						<Transition.Child
-							as={Fragment}
-							enter='duration-300'
-							enterFrom='translate-x-[320px]'
-							enterTo='translate-x-0'
-							leave='duration-300'
-							leaveFrom='translate-x-0'
-							leaveTo='translate-x-[320px]'
-						>
-							<Dialog.Panel
-								as='nav'
-								className='fixed right-0 top-0 z-30 h-screen min-w-[320px] space-y-5 overflow-y-auto overflow-x-hidden border-l bg-white px-8 pt-6 pb-5 dark:border-gray-400 dark:bg-neutral-900'
-							>
-								<NotificationBarInner />
-							</Dialog.Panel>
-						</Transition.Child>
-					</Dialog>
-				</Transition>
-			)}
-
-			{isLg && (
-				<Transition show={isOpen}>
+						<div className='fixed inset-0 bg-black/75' />
+					</Transition.Child>
 					<Transition.Child
-						as='div'
-						enter='duration-300'
-						enterFrom='w-0'
-						enterTo='w-[320px]'
-						leave='duration-300'
-						leaveFrom='w-[320px]'
-						leaveTo='w-0'
-					/>
-					<Transition.Child
-						as='nav'
+						as={Fragment}
 						enter='duration-300'
 						enterFrom='translate-x-[320px]'
-						enterTo='ml-0 translate-x-0'
+						enterTo='translate-x-0'
 						leave='duration-300'
-						leaveFrom='ml-0 translate-x-0'
+						leaveFrom='translate-x-0'
 						leaveTo='translate-x-[320px]'
-						className='fixed right-0 top-0 z-20 h-screen min-w-[320px] space-y-5 overflow-y-auto overflow-x-hidden border-l bg-white px-8 pt-6 pb-5 dark:border-gray-400 dark:bg-neutral-900'
 					>
-						<NotificationBarInner />
+						<Dialog.Panel
+							as='nav'
+							className='fixed right-0 top-0 z-30 h-screen min-w-[320px] space-y-5 overflow-y-auto overflow-x-hidden border-l bg-white px-8 pt-6 pb-5 dark:border-gray-400 dark:bg-neutral-900'
+						>
+							<NotificationBarInner />
+						</Dialog.Panel>
 					</Transition.Child>
-				</Transition>
-			)}
+				</Dialog>
+			</Transition>
+
+			<Transition show={isLg && notificationBarOpen}>
+				<Transition.Child
+					as='nav'
+					enter='duration-300'
+					enterFrom='translate-x-[320px]'
+					enterTo='ml-0 translate-x-0'
+					leave='duration-300'
+					leaveFrom='ml-0 translate-x-0'
+					leaveTo='translate-x-[320px]'
+					className='fixed right-0 top-0 z-20 h-screen min-w-[320px] space-y-5 overflow-y-auto overflow-x-hidden border-l bg-white px-8 pt-6 pb-5 dark:border-gray-400 dark:bg-neutral-900'
+				>
+					<NotificationBarInner />
+				</Transition.Child>
+				<Transition.Child
+					as='div'
+					enter='duration-300'
+					enterFrom='w-0'
+					enterTo='w-[320px]'
+					leave='duration-300'
+					leaveFrom='w-[320px]'
+					leaveTo='w-0'
+					className='w-[320px]'
+				/>
+			</Transition>
 		</>
 	);
 }

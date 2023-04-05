@@ -1,5 +1,6 @@
 import { RecoilProvider } from '@/providers/recoil-provider';
 import { NextThemeProvider } from '../providers/theme-provider';
+import ClientOnly from './ClientOnly';
 import Navbar from './Navbar';
 import NotificationBar from './NotificationBar';
 import Sidebar from './Sidebar';
@@ -26,14 +27,14 @@ export default function RootLayout({
 			<body className='bg-gray-50 dark:bg-neutral-900'>
 				<RecoilProvider>
 					<NextThemeProvider>
-						<div className='flex'>
+						<ClientOnly className='flex'>
 							<Sidebar />
 							<div className='grow'>
 								<Navbar />
 								{children}
 							</div>
 							<NotificationBar />
-						</div>
+						</ClientOnly>
 					</NextThemeProvider>
 				</RecoilProvider>
 			</body>

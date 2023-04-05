@@ -9,21 +9,14 @@ import { useRecoilState } from 'recoil';
 
 export default function Sidebar() {
 	const [sideBarOpen, setSidebarOpen] = useRecoilState(sidebarOpenState);
-	const [isOpen, setIsOpen] = useState(false);
-	useEffect(() => setIsOpen(sideBarOpen), [sideBarOpen]);
 
-	const [isLg, setIsLg] = useState(true);
-	useEffect(() => {
-		const lgMediaQuery = window.matchMedia('(min-width: 1024px)');
+	const lgMediaQuery = window.matchMedia('(min-width: 1280px)');
+	const [isLg, setIsLg] = useState(lgMediaQuery.matches);
 
-		if (!lgMediaQuery.matches) setSidebarOpen(false);
-		setIsLg(lgMediaQuery.matches);
-
-		lgMediaQuery.onchange = (event) => {
-			if (!event.matches) setSidebarOpen(false);
-			setIsLg(event.matches);
-		};
-	}, [setSidebarOpen]);
+	lgMediaQuery.onchange = (event) => {
+		setSidebarOpen(false);
+		setIsLg(event.matches);
+	};
 
 	const pathname = usePathname();
 	useEffect(() => {
@@ -33,7 +26,7 @@ export default function Sidebar() {
 	return (
 		<>
 			{!isLg && (
-				<Transition show={isOpen} as={Fragment}>
+				<Transition show={sideBarOpen} as={Fragment}>
 					<Dialog
 						as='div'
 						className='relative z-40'
@@ -72,7 +65,7 @@ export default function Sidebar() {
 
 			{isLg && (
 				<Transition
-					show={isOpen}
+					show={sideBarOpen}
 					as='nav'
 					enter='duration-300'
 					enterFrom='-ml-[240px] -translate-x-[240px]'
