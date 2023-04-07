@@ -1,14 +1,14 @@
 'use client';
 
-import { sidebarOpenState } from '@/recoil/atoms';
+import { sidebarOpenState } from '@/jotai/atoms';
 import { Dialog, Transition } from '@headlessui/react';
+import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
 
 export default function Sidebar() {
-	const [sideBarOpen, setSidebarOpen] = useRecoilState(sidebarOpenState);
+	const [sideBarOpen, setSidebarOpen] = useAtom(sidebarOpenState);
 
 	const lgMediaQuery = window.matchMedia('(min-width: 1280px)');
 	const [isLg, setIsLg] = useState(lgMediaQuery.matches);
@@ -54,7 +54,7 @@ export default function Sidebar() {
 						>
 							<Dialog.Panel
 								as='nav'
-								className='fixed top-0 left-0 h-screen min-w-[240px] border-r bg-white px-8 pb-5 duration-300 dark:border-gray-400 dark:bg-neutral-900'
+								className='fixed left-0 top-0 h-screen min-w-[240px] border-r bg-white px-8 pb-5 duration-300 dark:border-gray-400 dark:bg-neutral-900'
 							>
 								<SidebarInner />
 							</Dialog.Panel>
@@ -139,7 +139,7 @@ function SidebarInner() {
 				<span>Riyadh Baatchia</span>
 			</div>
 			<ol className='space-y-8'>
-				<li className='space-y-2 space-x-5'>
+				<li className='space-x-5 space-y-2'>
 					<span className='text-gray-400'>Favorites</span>
 					<span className='text-gray-400'>Recently</span>
 					<ol className='space-y-2'>

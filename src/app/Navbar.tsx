@@ -1,16 +1,16 @@
 'use client';
 
-import { notificationBarOpenState, sidebarOpenState } from '@/recoil/atoms';
 import { usePathname } from 'next/navigation';
-import { useSetRecoilState } from 'recoil';
 import ThemeButton from './ThemeButton';
+import { useSetAtom } from 'jotai';
+import { notificationBarOpenState, sidebarOpenState } from '@/jotai/atoms';
 
 export default function Navbar() {
 	const pathname = usePathname().replace('/', '');
 	const pageName = pathname.trim() === '' ? 'Overview' : pathname;
 
-	const setSideBarOpen = useSetRecoilState(sidebarOpenState);
-	const setNotificationBarOpen = useSetRecoilState(notificationBarOpenState);
+	const setSideBarOpen = useSetAtom(sidebarOpenState);
+	const setNotificationBarOpen = useSetAtom(notificationBarOpenState);
 
 	const toggleSideBar = () => setSideBarOpen((prev) => !prev);
 	const toggleNotificationBar = () => setNotificationBarOpen((prev) => !prev);

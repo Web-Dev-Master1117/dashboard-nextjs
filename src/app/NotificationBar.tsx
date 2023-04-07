@@ -1,14 +1,14 @@
 'use client';
 
-import { notificationBarOpenState } from '@/recoil/atoms';
+import { notificationBarOpenState } from '@/jotai/atoms';
 import { classNames } from '@/utils';
 import { Dialog, Transition } from '@headlessui/react';
+import { useAtom } from 'jotai';
 import Image from 'next/image';
 import { Fragment, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
 
 export default function NotificationBar() {
-	const [notificationBarOpen, setNotificationBarOpen] = useRecoilState(
+	const [notificationBarOpen, setNotificationBarOpen] = useAtom(
 		notificationBarOpenState
 	);
 
@@ -54,7 +54,7 @@ export default function NotificationBar() {
 					>
 						<Dialog.Panel
 							as='nav'
-							className='fixed right-0 top-0 z-30 h-screen min-w-[320px] space-y-5 overflow-y-auto overflow-x-hidden border-l bg-white px-8 pt-6 pb-5 dark:border-gray-400 dark:bg-neutral-900'
+							className='fixed right-0 top-0 z-30 h-screen min-w-[320px] space-y-5 overflow-y-auto overflow-x-hidden border-l bg-white px-8 pb-5 pt-6 dark:border-gray-400 dark:bg-neutral-900'
 						>
 							<NotificationBarInner />
 						</Dialog.Panel>
@@ -71,7 +71,7 @@ export default function NotificationBar() {
 					leave='duration-300'
 					leaveFrom='ml-0 translate-x-0'
 					leaveTo='translate-x-[320px]'
-					className='fixed right-0 top-0 z-20 h-screen min-w-[320px] space-y-5 overflow-y-auto overflow-x-hidden border-l bg-white px-8 pt-6 pb-5 dark:border-gray-400 dark:bg-neutral-900'
+					className='fixed right-0 top-0 z-20 h-screen min-w-[320px] space-y-5 overflow-y-auto overflow-x-hidden border-l bg-white px-8 pb-5 pt-6 dark:border-gray-400 dark:bg-neutral-900'
 				>
 					<NotificationBarInner />
 				</Transition.Child>
@@ -99,7 +99,7 @@ function NotificationBarInner() {
 					{NOTIFICATION_BAR.map((item, index) => (
 						<li
 							key={index}
-							className='flex cursor-pointer space-x-3 rounded-lg px-3 pt-2 pb-1 transition-[background-color] duration-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+							className='flex cursor-pointer space-x-3 rounded-lg px-3 pb-1 pt-2 transition-[background-color] duration-300 hover:bg-gray-100 dark:hover:bg-gray-800'
 						>
 							<span
 								className={classNames(
@@ -129,7 +129,7 @@ function NotificationBarInner() {
 								className={classNames(
 									index === NOTIFICATION_BAR_ACTIVITIES.length - 1
 										? ''
-										: 'after:absolute after:right-1/2 after:-bottom-6 after:h-5 after:translate-x-1/2 after:rounded after:border',
+										: 'after:absolute after:-bottom-6 after:right-1/2 after:h-5 after:translate-x-1/2 after:rounded after:border',
 									'relative h-7 w-7'
 								)}
 							>

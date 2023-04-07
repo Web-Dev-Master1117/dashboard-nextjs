@@ -1,12 +1,13 @@
-import { RecoilProvider } from '@/providers/recoil-provider';
+import { JotaiProvider } from '@/providers/jotai-provider';
 import { NextThemeProvider } from '../providers/theme-provider';
 import ClientOnly from './ClientOnly';
 import Navbar from './Navbar';
 import NotificationBar from './NotificationBar';
 import Sidebar from './Sidebar';
 
+import '@/../node_modules/@phosphor-icons/web/src/duotone/style.css';
+import '@/../node_modules/@phosphor-icons/web/src/regular/style.css';
 import './globals.css';
-import './icons.css';
 
 export const metadata = {
 	title: 'Dashboard',
@@ -25,7 +26,7 @@ export default function RootLayout({
 			suppressHydrationWarning
 		>
 			<body className='bg-gray-50 dark:bg-neutral-900'>
-				<RecoilProvider>
+				<JotaiProvider>
 					<NextThemeProvider>
 						<ClientOnly className='flex'>
 							<Sidebar />
@@ -36,7 +37,7 @@ export default function RootLayout({
 							<NotificationBar />
 						</ClientOnly>
 					</NextThemeProvider>
-				</RecoilProvider>
+				</JotaiProvider>
 			</body>
 		</html>
 	);
